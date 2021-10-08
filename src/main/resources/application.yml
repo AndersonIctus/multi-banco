@@ -12,16 +12,31 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
   datasource:
+    url: jdbc:postgresql://localhost:5432/multi_banco_db
+    driver-class-name: org.postgresql.Driver
     username: postgres
     password: postgres
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/multi_banco_db
 
-flyway:
-  locations: classpath:db.migration
-
-lombok:
-  equalsAndHashCode:
-    doNotUseGetters: false
-    callSuper: skip
+multitenancy:
+  schema-cache:
+    maximumSize: 100
+    expireAfterAccess: 10
+  master:
+    repository:
+      packages: com.multibanco.multiBanco.config.multi_tenancy.repository
+    entityManager:
+      packages: com.multibanco.multiBanco.config.multi_tenancy.model
+    flyway:
+        locations: classpath:db/default
+        enable: false
+  tenant:
+    repository:
+      packages: com.multibanco.multiBanco.repository
+    entityManager:
+      packages: com.multibanco.multiBanco.models
+    flyway:
+      locations: classpath:db/migration
