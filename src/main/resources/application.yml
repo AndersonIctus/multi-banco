@@ -1,0 +1,27 @@
+# Propriedades padrão do Sistema
+server:
+  port: 9000
+  servlet:
+    context-path: /multi-banco
+
+spring:
+  application:
+    name: multi-banco
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/multi_banco_db
+
+flyway:
+  locations: classpath:db.migration
+
+lombok:
+  equalsAndHashCode:
+    doNotUseGetters: false
+    callSuper: skip
